@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 20
+/location/!svn/ver/1
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/location/!svn/ver/1/.classpath
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/location/!svn/ver/1/.project
+END
+run.bat
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/location/!svn/ver/1/run.bat
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/location/!svn/ver/1/pom.xml
+END

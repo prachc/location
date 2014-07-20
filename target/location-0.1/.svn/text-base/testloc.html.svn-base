@@ -1,0 +1,43 @@
+<html lang="en"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<title>Wikinear Test</title> 
+<!--script type="text/javascript" src="json.js"></script--> 
+</head> 
+<body> 
+<div id='test0'>ready!!</div>	
+<script language="javascript"> 
+var req0 = new XMLHttpRequest();  
+var elem0 = document.getElementById('test0');
+req0.open("GET", "http://192.168.11.4:8080/location/json");  
+
+req0.onreadystatechange = function () {
+	console.log("readyState="+req0.readyState);
+	console.log("status="+req0.status);
+	console.log("responseText="+req0.responseText);
+	if (req0.readyState == 4 &&  req0.status == 200){
+			elem0 = document.getElementById('test0');
+			//alert(elem.value);
+			text = req0.responseText;
+			var objJSON = JSON.parse(text);
+			//for(var geonames in objJSON)
+			//elem.innerHTML = objJSON.geonames.length;
+			var result = "<table>";
+			result += "<tr><td>Latitude</td><td><span style='color:red'>"+objJSON.latitude+"</span></td></tr>";
+			result += "<tr><td>Longitude</td><td><span style='color:red'>"+objJSON.longitude+"</span></td></tr>";
+			result += "</table><br>"
+			elem0.innerHTML = result;
+		//}else  
+		//alert("Error loading page 1\n");  
+	}else {
+		console.log("readyState="+req0.readyState);
+		console.log("status="+req0.status);
+		console.log("responseText="+req0.responseText);
+		elem0.innerHTML="connecting...";  
+	}
+}  
+req0.send(null);
+</script> 
+</body> 
+
+</html> 

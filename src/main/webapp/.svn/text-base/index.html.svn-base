@@ -1,0 +1,8 @@
+<h1>Location Service</h1>
+
+<a href="gps">Show current geolocation</a><br>
+<a href="json">Show location's Json</a><br>
+<a href="wikinear.html">Show closest Wikipedia Info.</a><br>
+<a href="barcode">Scan Barcode</a><br>
+<a href="wikinearjson?username=prach&lat=35.60711&amp;lng=139.68402">WikinearJson</a><br>
+<a href="localweatherjson?username=prach&lat=35.60711&amp;lng=139.68402">LocalWeatherJson</a><br>

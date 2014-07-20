@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Mashup Test</title>
+</head>
+<body>
+	<div id='test0'>ready!!</div>	
+	<div id='test1'>ready!!</div>
+	<div id='test2'>ready!!</div>
+</body>
+	<script language="javascript">
+	var GPSLocator = new XMLHttpRequest();
+	var GPSLocatorJSON = null;
+	var elem0 = document.getElementById('test0');
+	
+	if(GPSLocator){
+		GPSLocator.open('GET', 'json', false);  
+		GPSLocator.send(null);
+		elem0 = document.getElementById('test0');
+		elem0.innerHTML="connecting...";
+		GPSLocatorJSON = JSON.parse(GPSLocator.responseText);
+		var result = "<table><tr><td>Latitude</td><td><span style='color:red'>"
+			+GPSLocatorJSON.latitude
+			+"</span></td></tr><tr><td>Longitude</td><td><span style='color:red'>"
+			+GPSLocatorJSON.longitude+
+			"</span></td></tr></table><br>"
+		elem0.innerHTML = result;
+	}
+	
+	var username = "prach";
+	var LocalWeather = new XMLHttpRequest();
+	var LocalWeatherJSON;	
+	var elem1 = document.getElementById('test1');
+	var url = 'LocalWeather?username='+username+'&lat='+GPSLocatorJSON.latitude+'&lng='+GPSLocatorJSON.longitude;
+	LocalWeather.open('GET', url, true);  
+	LocalWeather.onreadystatechange = function (aEvt) {  
+	  if (LocalWeather.readyState == 4) {  
+	     if(LocalWeather.status == 200){
+	      	elem1 = document.getElementById('test1');
+			//alert(elem.value);
+			var LocalWeatherJSON = JSON.parse(LocalWeather.responseText);
+			var result = "<table><tr><td>temperaure</td><td><span style='color:red'>"
+				+LocalWeatherJSON.weatherObservation.temperature+
+				" degrees</span></td></tr><tr><td>clouds</td><td><span style='color:red'>"
+				+LocalWeatherJSON.weatherObservation.clouds+"</span></td></tr></table><br>"
+			elem1.innerHTML = result;
+		}else  
+	      alert("Error loading page\n");  
+	  }else elem1.innerHTML="connecting...";  
+	};  
+	LocalWeather.send(null);
+	
+	var Wikinear = new XMLHttpRequest();
+	var WikinearJSON;	
+	var elem2 = document.getElementById('test2');
+	var url = 'wikinearjson?username='+username+'&lat='+GPSLocatorJSON.latitude+'&lng='+GPSLocatorJSON.longitude;
+	Wikinear.open('GET', url, true);  
+	Wikinear.onreadystatechange = function (aEvt) {  
+	  if (Wikinear.readyState == 4) {  
+	     if(Wikinear.status == 200){
+	      	elem2 = document.getElementById('test2');
+			var WikinearJSON = JSON.parse(Wikinear.responseText);
+			var result = "<table>";
+			for(i=0;i<WikinearJSON.geonames.length;i++){
+				result += "<tr><td>title</td><td><span style='color:red'>"+WikinearJSON.geonames[i].title+"</span></td></tr>\n";
+				result += "<tr><td>summary</td><td><span style='color:black'>"+WikinearJSON.geonames[i].summary+"</span></td></tr>\n";
+				result += "<tr><td>distance</td><td><span style='color:green'>"+WikinearJSON.geonames[i].distance+"</span></td></tr>\n";
+				result += "<tr><td>url</td><td><span style='color:blue'><a href='http://"+WikinearJSON.geonames[i].wikipediaUrl+"'>"+WikinearJSON.geonames[i].wikipediaUrl+"</a></span></td></tr>\n";
+				result += "<tr><td>coor</td><td><span style='color:purple'>"+WikinearJSON.geonames[i].lat+" "+WikinearJSON.geonames[i].lng+"</span></td></tr>\n";
+				result += "<tr><td>&nbsp;</td></tr>";
+			}
+			result += "</table>"
+			elem2.innerHTML = result;
+			
+		}else  
+	      alert("Error loading page\n");  
+	  }else elem2.innerHTML="connecting...";  
+	};  
+	Wikinear.send(null);
+	
+	</script>
+</html>
